@@ -14,7 +14,9 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
+      tag: lawr/example-helloserver:${CICD_EXECUTION_SEQUENCE}
+      pushRemote: true
+      registry: reg.cnrancher.com
 - name: Publish Catalog
   steps:
   - publishCatalogConfig:
@@ -38,6 +40,7 @@ stages:
       catalogTemplate: cattle-global-data:mycharts-demo
       version: 0.1.0-${CICD_GIT_COMMIT}
       answers:
+        image.repository: reg.cnrancher.com/lawr/example-helloserver
         image.tag: ${CICD_EXECUTION_SEQUENCE}
       name: myapp
       targetNamespace: default
