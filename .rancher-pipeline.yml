@@ -17,31 +17,4 @@ stages:
       tag: lawr/example-helloserver:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
       registry: reg.cnrancher.com
-- name: Publish Catalog
-  steps:
-  - publishCatalogConfig:
-      path: ./chart
-      catalogTemplate: demo
-      version: 0.1.0-${CICD_GIT_COMMIT}
-      gitUrl: https://github.com/gitlawr/mycharts.git
-      gitBranch: master
-      gitAuthor: gitlawr
-      gitEmail: lawrleegle@gmail.com
-    envFrom:
-    - sourceName: publish-keys
-      sourceKey: USERNAME
-      targetKey: USERNAME
-    - sourceName: publish-keys
-      sourceKey: PASSWORD
-      targetKey: PASSWORD
-- name: Deploy App
-  steps:
-  - applyAppConfig:
-      catalogTemplate: cattle-global-data:mycharts-demo
-      version: 0.1.0-${CICD_GIT_COMMIT}
-      answers:
-        image.repository: reg.cnrancher.com/lawr/example-helloserver
-        image.tag: ${CICD_EXECUTION_SEQUENCE}
-      name: myapp
-      targetNamespace: default
 notification: {}
