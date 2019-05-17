@@ -15,11 +15,6 @@ stages:
       dockerfilePath: ./Dockerfile
       buildContext: .
       tag: example-helloserver:${CICD_EXECUTION_SEQUENCE}
-      pushRemote: true
-      registry: 192.168.99.210:31114
-    env:
-      PLUGIN_DEBUG: "true"
-      PLUGIN_INSECURE: "true"
 - name: Deploy
   steps:
   - applyYamlConfig:
